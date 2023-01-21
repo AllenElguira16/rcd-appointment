@@ -1,47 +1,79 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { nanoid } from 'nanoid';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { appointmentSchema } from '~/schema';
-import { AppointmentForm, AppointmentType } from '~/types';
+import { AppointmentForm } from '~/types';
 
 export function Appointment({
   formInput,
-  select,
-  onSelect,
   onSubmit,
   defaultValues,
   isSelectDisabled = false,
 }: AppointmentProps) {
   const {
+    watch,
+    reset,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AppointmentForm<typeof select>>({
-    resolver: zodResolver(appointmentSchema(select)),
+  } = useForm<AppointmentForm>({
+    resolver: zodResolver(appointmentSchema),
     defaultValues,
   });
 
+  const handleSubmitParent = async () => {
+    await onSubmit(watch());
+    if (!isSelectDisabled) reset();
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="card-body grid gap-4">
+    <form
+      onSubmit={handleSubmit(handleSubmitParent)}
+      className="card-body grid gap-4"
+    >
       <div className="card-title">
         <h2>Set Appointment</h2>
-        <select
-          value={select}
-          onChange={(e) => onSelect(e.currentTarget.value as AppointmentType)}
-          className="select select-bordered w-full max-w-xs"
-          disabled={isSelectDisabled}
-        >
-          <option disabled hidden value="" defaultValue="">
-            Choose your appointment
-          </option>
-          <option value="wedding">Wedding</option>
-          <option value="baptism">Baptismal</option>
-          <option value="burial">Burial</option>
-          <option value="others">Other Services</option>
-        </select>
+        <div className="ml-auto flex gap-4">
+          <div>
+            <label htmlFor="" className="text-xs">
+              Appointment Type
+            </label>
+            <select
+              className={`select select-primary w-full${
+                errors.appointmentType ? ' input-error' : ''
+              }`}
+              disabled={isSelectDisabled}
+              {...register('appointmentType')}
+            >
+              <option value="DONOR">Donor</option>
+              <option value="RECIPIENT">Recipient</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="" className="text-xs">
+              Blood Type
+            </label>
+            <select
+              className={`select select-primary w-full${
+                errors.bloodType ? ' input-error' : ''
+              }`}
+              {...register('bloodType')}
+            >
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
+          </div>
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        {formInput(select).map((form, i) => (
-          <div key={i}>
+        {formInput.map((form) => (
+          <div key={nanoid()}>
             <label htmlFor={form.id} className="text-xs">
               {form.label}
             </label>
@@ -58,19 +90,20 @@ export function Appointment({
           </div>
         ))}
       </div>
-      <div>
-        <label htmlFor="appointment_date" className="text-xs">
-          Target Date of Appointment
+      <div className="w-full">
+        <label htmlFor="gender" className="text-xs">
+          Gender
         </label>
-        <input
-          type="date"
-          id="appointment_date"
-          className={`input input-bordered w-full${
-            errors.date ? ' input-error' : ''
+        <select
+          id="gender"
+          className={`select select-primary w-full${
+            errors.gender ? ' input-error' : ''
           }`}
-          {...register('date')}
-        />
-        <small className="text-error">{errors.date?.message}</small>
+          {...register('gender')}
+        >
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
       </div>
       <button type="submit" className="btn btn-primary">
         {isSelectDisabled ? 'Update' : 'Proceed to Payment'}
@@ -79,20 +112,16 @@ export function Appointment({
   );
 }
 
-export type AppointmentFormInput<T> = {
+export type AppointmentFormInput = {
   id: string;
-  name: keyof T;
+  name: keyof AppointmentForm;
   label: string;
   placeholder: string;
 };
 
 type AppointmentProps = {
-  defaultValues?: AppointmentForm<AppointmentType>;
-  formInput: <T extends AppointmentType>(
-    type: T,
-  ) => AppointmentFormInput<AppointmentForm<T>>[];
-  select: AppointmentType;
-  onSelect: (newSelect: AppointmentType) => void;
-  onSubmit: SubmitHandler<AppointmentForm<AppointmentType>>;
+  defaultValues: AppointmentForm;
+  formInput: AppointmentFormInput[];
+  onSubmit: SubmitHandler<AppointmentForm>;
   isSelectDisabled?: boolean;
 };

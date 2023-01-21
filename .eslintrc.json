@@ -4,13 +4,20 @@
     "airbnb",
     "airbnb/hooks",
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:react/jsx-runtime",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
+  "plugins": ["unused-imports"],
   "rules": {
     "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": "off",
     "import/prefer-default-export": "off",
+    "unused-imports/no-unused-imports": "error",
+    "jsx-a11y/control-has-associated-label": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "no-use-before-define": "off",
+    "react/require-default-props": "off",
     "import/extensions": [
       "error",
       "ignorePackages",

@@ -1,8 +1,8 @@
-import Link, { LinkProps } from "next/link";
-import { useRouter } from "next/router";
-import { HTMLProps } from "react";
+import Link, { LinkProps } from 'next/link';
+import { useRouter } from 'next/router';
+import { HTMLProps } from 'react';
 
-type NavLinkProps = LinkProps & Omit<HTMLProps<HTMLAnchorElement>, "ref">;
+type NavLinkProps = LinkProps & Omit<HTMLProps<HTMLAnchorElement>, 'ref'>;
 
 export function NavLink({
   href,
@@ -14,7 +14,7 @@ export function NavLink({
   let className = baseClassName;
 
   if (router.pathname === href)
-    className = className ? `${className} active` : "active";
+    className = className ? `${className} active` : 'active';
 
   return (
     <Link {...props} href={href} className={className}>

@@ -1,10 +1,12 @@
 import { router } from '~/rpc';
-import { appointment } from './appointment';
-import { user } from './user';
+import { appointmentRouter } from './appointment';
+import { userRouter } from './user';
+import { announcementRouter } from './announcement';
 
 export const appRouter = router({
-  user,
-  appointment,
+  user: userRouter,
+  appointment: appointmentRouter,
+  announcement: announcementRouter,
 });
 
 export type AppRouter = typeof appRouter;

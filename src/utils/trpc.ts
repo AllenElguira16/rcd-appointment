@@ -29,6 +29,14 @@ export const trpc = createTRPCNext<AppRouter, SSRContext>({
             url: `${getBaseUrl()}/api/trpc`,
           }),
         ],
+        queryClientConfig: {
+          defaultOptions: {
+            queries: {
+              refetchOnWindowFocus: false,
+              refetchOnMount: false,
+            },
+          },
+        },
       };
     }
 
@@ -45,6 +53,7 @@ export const trpc = createTRPCNext<AppRouter, SSRContext>({
           headers() {
             if (!ctx?.req) return {};
 
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { connection: _connection, ...headers } = ctx.req.headers;
             return { ...headers, 'x-ssr': '1' };
           },

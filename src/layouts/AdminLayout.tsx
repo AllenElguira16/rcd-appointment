@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { PropsWithChildren } from 'react';
 import { CommonLayout } from './CommonLayout';
 
-export const AdminLayout = ({ children }: PropsWithChildren) => {
+export function AdminLayout({ children }: PropsWithChildren) {
   const router = useRouter();
   const logoutMutation = trpc.user.logout.useMutation();
 
@@ -33,8 +33,14 @@ export const AdminLayout = ({ children }: PropsWithChildren) => {
           </li> */}
           <li>
             <Link href="/admin/appointment">
-              <i className="material-icons">diversity_3</i>
+              <i className="material-icons">account_circle</i>
               <small className="font-bold">Appointments</small>
+            </Link>
+          </li>
+          <li>
+            <Link href="/admin/announcements">
+              <i className="material-icons">description</i>
+              <small className="font-bold">Announcements</small>
             </Link>
           </li>
           <li className="menu-title">
@@ -47,7 +53,7 @@ export const AdminLayout = ({ children }: PropsWithChildren) => {
             </Link>
           </li>
           <li>
-            <button onClick={handleSignOut}>
+            <button type="button" onClick={handleSignOut}>
               <i className="material-icons">logout</i>
               <small className="font-bold">Sign Out</small>
             </button>
@@ -58,4 +64,4 @@ export const AdminLayout = ({ children }: PropsWithChildren) => {
       {children}
     </CommonLayout>
   );
-};
+}

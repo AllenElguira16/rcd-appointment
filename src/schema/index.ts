@@ -1,3 +1,3 @@
-export * from './signInSchema';
-export * from './signUpSchema';
+export * from './authSchema';
 export * from './appointmentSchema';
+export * from './announcementSchema';

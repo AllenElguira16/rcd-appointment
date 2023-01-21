@@ -1,6 +1,4 @@
-import { useTheme } from '~/hooks';
 import { PropsWithChildren } from 'react';
-import { themes } from '~/consts';
 import { Logo } from './Logo';
 
 type CommonLayoutProps = PropsWithChildren<{
@@ -8,8 +6,6 @@ type CommonLayoutProps = PropsWithChildren<{
 }>;
 
 export function CommonLayout({ children, nav }: CommonLayoutProps) {
-  const [theme, handleThemeChange] = useTheme();
-
   return (
     <div className="overflow-hidden">
       <div className="sticky shadow top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-100 text-base-content">
@@ -27,23 +23,6 @@ export function CommonLayout({ children, nav }: CommonLayoutProps) {
           </span>
           <div className="z-20 bg-opacity-90 backdrop-blur sticky top-0 items-center gap-2 px-4 py-2">
             <Logo />
-          </div>
-          <div className="ml-auto">
-            <select
-              className="select"
-              onChange={handleThemeChange}
-              value={theme}
-            >
-              <option value="" defaultValue="" hidden>
-                Theme
-              </option>
-              {themes.map((theme) => (
-                <option value={theme} key={theme}>
-                  {theme}
-                </option>
-              ))}
-              <option value="dark">Dark</option>
-            </select>
           </div>
         </nav>
       </div>

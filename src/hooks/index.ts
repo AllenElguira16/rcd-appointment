@@ -1,10 +1,10 @@
-import { useState, useEffect, ChangeEventHandler } from "react";
+import { useState, useEffect, ChangeEventHandler } from 'react';
 
 export const useDomReady = () => {
   const [isDomReady, setIsDomReady] = useState(false);
 
   useEffect(() => {
-    setIsDomReady(typeof document !== "undefined");
+    setIsDomReady(typeof window !== 'undefined');
   }, []);
 
   return isDomReady;
@@ -12,22 +12,22 @@ export const useDomReady = () => {
 
 export const useTheme = (): [string, ChangeEventHandler<HTMLSelectElement>] => {
   const [theme, setTheme] = useState(
-    typeof document !== "undefined"
-      ? window.localStorage.getItem("app-color") ?? "light"
-      : "light"
+    typeof document !== 'undefined'
+      ? window.localStorage.getItem('app-color') ?? 'light'
+      : 'light',
   );
 
   useEffect(() => {
     document
-      .querySelector("html")
+      .querySelector('html')
       ?.setAttribute(
-        "data-theme",
-        window.localStorage.getItem("app-color") || "light"
+        'data-theme',
+        window.localStorage.getItem('app-color') || 'light',
       );
   }, [theme]);
 
   const handleThemeChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
-    window.localStorage.setItem("app-color", event.currentTarget.value);
+    window.localStorage.setItem('app-color', event.currentTarget.value);
     setTheme(event.currentTarget.value);
   };
 

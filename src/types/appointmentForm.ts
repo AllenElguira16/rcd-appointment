@@ -1,43 +1,13 @@
 import type { Appointment } from '@prisma/client';
 
-export type AppointmentType = 'wedding' | 'burial' | 'baptism' | 'others';
-
-export type WeddingAppointmentForm = {
-  brideName: string;
-  groomName: string;
+export type AppointmentForm = {
+  appointmentType: Appointment['type'];
+  bloodType: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  address: string;
   email: string;
-  phone: string;
-  date: string;
+  contactNumber: string;
+  gender: string;
 };
-
-export type BurialAppointmentForm = {
-  name: string;
-  email: string;
-  phone: string;
-  date: string;
-};
-
-export type BaptismAppointmentForm = {
-  name: string;
-  email: string;
-  phone: string;
-  date: string;
-};
-
-export type OtherAppointmentForm = {
-  name: string;
-  email: string;
-  phone: string;
-  date: string;
-};
-
-export type AppointmentForm<Type extends AppointmentType> =
-  Type extends 'wedding'
-    ? WeddingAppointmentForm
-    : Type extends 'burial'
-    ? BurialAppointmentForm
-    : Type extends 'baptism'
-    ? BaptismAppointmentForm
-    : Type extends 'others'
-    ? OtherAppointmentForm
-    : unknown;

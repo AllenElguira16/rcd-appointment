@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model User {
@@ -28,17 +29,23 @@ model Appointment {
   type      AppointmentEnum
   info      Json
   userId    String
-  date      DateTime
-  paid      Boolean         @default(false)
   approved  Boolean         @default(false)
   createdAt DateTime        @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
+model Announcement {
+  id        String   @id @unique @default(uuid())
+  title     String
+  address   String
+  lat       Float
+  lng       Float
+  date      DateTime
+  createdAt DateTime @default(now())
+}
+
 enum AppointmentEnum {
-  WEDDING
-  BURIAL
-  BAPTISM
-  OTHERS
+  DONOR
+  RECIPIENT
 }

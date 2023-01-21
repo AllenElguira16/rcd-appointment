@@ -47,7 +47,7 @@ export function Alert() {
     <Portal node={document.body}>
       {alert.isOpen && (
         <div
-          className={`alert ${
+          className={`alert z-[1000] ${
             alertStatusMap[alert.type].text
           } shadow-lg absolute bottom-2 right-2 w-1/6`}
         >

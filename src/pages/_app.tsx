@@ -6,18 +6,8 @@ import type { AppProps } from 'next/app';
 import { RecoilRoot } from 'recoil';
 import { trpc } from '~/utils';
 import { Alert } from '~/components';
-import { useEffect } from 'react';
 
 function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    document
-      .querySelector('html')
-      ?.setAttribute(
-        'data-theme',
-        window.localStorage.getItem('app-color') || 'light',
-      );
-  }, []);
-
   return (
     <RecoilRoot>
       <NextNProgress />

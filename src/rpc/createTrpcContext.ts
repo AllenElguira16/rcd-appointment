@@ -1,7 +1,7 @@
 import trpc from '@trpc/server';
 import trpcNext from '@trpc/server/adapters/next';
 import { getIronSession } from 'iron-session';
-// import { User } from '@prisma/client';
+import { User } from '@prisma/client';
 
 export async function createTrpcContext({
   req,
@@ -25,6 +25,6 @@ export type TrpcContext = trpc.inferAsyncReturnType<typeof createTrpcContext>;
 
 declare module 'iron-session' {
   interface IronSessionData {
-    // user?: Omit<User, 'password'>;
+    user?: Omit<User, 'password'>;
   }
 }

@@ -2,9 +2,10 @@ import { NavLink } from '~/components';
 import { trpc } from '~/utils';
 import { useRouter } from 'next/router';
 import { PropsWithChildren } from 'react';
+import Link from 'next/link';
 import { CommonLayout } from './CommonLayout';
 
-export const UserLayout = ({ children }: PropsWithChildren) => {
+export function UserLayout({ children }: PropsWithChildren) {
   const router = useRouter();
   const logoutMutation = trpc.user.logout.useMutation();
 
@@ -31,10 +32,10 @@ export const UserLayout = ({ children }: PropsWithChildren) => {
             </NavLink>
           </li>
           <li>
-            <NavLink href="/user/transaction-history">
-              <i className="material-icons">manage_history</i>
-              <small className="font-bold">Transaction History</small>
-            </NavLink>
+            <Link href="/user/announcements">
+              <i className="material-icons">description</i>
+              <small className="font-bold">Announcements</small>
+            </Link>
           </li>
           <li className="menu-title">
             <span>Account Pages</span>
@@ -46,7 +47,7 @@ export const UserLayout = ({ children }: PropsWithChildren) => {
             </NavLink>
           </li>
           <li>
-            <button onClick={handleSignOut}>
+            <button type="button" onClick={handleSignOut}>
               <i className="material-icons">logout</i>
               <small className="font-bold">Sign Out</small>
             </button>
@@ -57,4 +58,4 @@ export const UserLayout = ({ children }: PropsWithChildren) => {
       {children}
     </CommonLayout>
   );
-};
+}
