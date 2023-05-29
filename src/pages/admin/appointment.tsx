@@ -7,9 +7,9 @@ import { trpc } from '~/utils';
 import { AppointmentEnum, User } from '@prisma/client';
 import { ChangeEventHandler, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
-import { Portal } from 'react-portal';
 import { useSetRecoilState } from 'recoil';
 import { nanoid } from 'nanoid';
+import { Portal } from 'react-portal';
 
 const formInput: AppointmentFormInput[] = [
   {
@@ -101,8 +101,7 @@ export default function AppointmentPage() {
   const deleteMutation = trpc.appointment.delete.useMutation();
   const setAsApprovedMutation = trpc.appointment.setAsApproved.useMutation();
   const [bloodType, setBloodType] = useState('');
-  const { data, refetch } =
-    trpc.appointment.getAllByBloodType.useQuery(bloodType);
+  const { data, refetch } = trpc.appointment.getAllByBlood.useQuery(bloodType);
 
   const handleBloodType: ChangeEventHandler<HTMLSelectElement> = (event) => {
     setBloodType(event.currentTarget.value);

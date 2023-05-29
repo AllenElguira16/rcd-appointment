@@ -146,7 +146,7 @@ export const appointmentRouter = router({
         },
       });
     }),
-  getAllByBloodType: procedure(true)
+  getAllByBlood: procedure(true)
     .input(z.string().optional())
     .query(async ({ ctx, input }) => {
       if (!ctx.session.user)
