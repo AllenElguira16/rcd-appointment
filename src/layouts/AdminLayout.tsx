@@ -1,7 +1,7 @@
 import { trpc } from '~/utils';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { PropsWithChildren } from 'react';
+import { NavLink } from '~/components';
 import { CommonLayout } from './CommonLayout';
 
 export function AdminLayout({ children }: PropsWithChildren) {
@@ -19,10 +19,10 @@ export function AdminLayout({ children }: PropsWithChildren) {
       nav={
         <ul className="menu p-2">
           <li>
-            <Link href="/admin/users">
+            <NavLink href="/admin/users">
               <i className="material-icons">person_add</i>
               <small className="font-bold">Users</small>
-            </Link>
+            </NavLink>
           </li>
           {/* NEEDS CLARIFICATION */}
           {/* <li>
@@ -32,25 +32,25 @@ export function AdminLayout({ children }: PropsWithChildren) {
             </Link>
           </li> */}
           <li>
-            <Link href="/admin/appointment">
+            <NavLink href="/admin/appointment">
               <i className="material-icons">account_circle</i>
               <small className="font-bold">Appointments</small>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link href="/admin/announcements">
+            <NavLink href="/admin/announcements">
               <i className="material-icons">description</i>
               <small className="font-bold">Announcements</small>
-            </Link>
+            </NavLink>
           </li>
           <li className="menu-title">
             <span>Profile</span>
           </li>
           <li>
-            <Link href="/admin/profile">
+            <NavLink href="/admin/profile">
               <i className="material-icons">manage_accounts</i>
               <small className="font-bold">User Profile</small>
-            </Link>
+            </NavLink>
           </li>
           <li>
             <button type="button" onClick={handleSignOut}>

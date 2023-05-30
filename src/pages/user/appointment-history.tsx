@@ -2,13 +2,14 @@ import { Appointment, AppointmentFormInput } from '~/components';
 import { useDomReady } from '~/hooks';
 import { UserLayout } from '~/layouts';
 import { alertState } from '~/state';
-import { AppointmentForm } from '~/types';
+import { AppointmentForm, AppointmentInfo } from '~/types';
 import { trpc } from '~/utils';
 import { AppointmentEnum, Prisma, User } from '@prisma/client';
 import { SubmitHandler } from 'react-hook-form';
 import { Portal } from 'react-portal';
 import { useSetRecoilState } from 'recoil';
 import { nanoid } from 'nanoid';
+import { ChangeEventHandler, useState } from 'react';
 
 const formInput: AppointmentFormInput[] = [
   {
@@ -95,9 +96,11 @@ function AppointmentModal({ appointment }: AppointmentModalProps) {
 }
 
 export default function AppointmentHistory() {
+  const [bloodType, setBloodType] = useState('');
   const isDom = useDomReady();
   const setAlert = useSetRecoilState(alertState);
-  const { data, refetch } = trpc.appointment.getUserAppointment.useQuery();
+  // const { data, refetch } = trpc.appointment.getUserAppointment.useQuery();
+  const { data, refetch } = trpc.appointment.getAllByBlood.useQuery(bloodType);
   const deleteMutation = trpc.appointment.delete.useMutation();
 
   const handleDelete = (id: string) => async () => {
@@ -109,6 +112,10 @@ export default function AppointmentHistory() {
     }
   };
 
+  const handleBloodType: ChangeEventHandler<HTMLSelectElement> = (event) => {
+    setBloodType(event.currentTarget.value);
+  };
+
   if (!data) return null;
 
   const { appointments } = data;
@@ -117,14 +124,30 @@ export default function AppointmentHistory() {
     <UserLayout>
       <div className="card bg-base-100 shadow-xl">
         <div className="card-body">
-          <div className="card-title">
-            <h2>Appointment History</h2>
+          <div className="flex justify-between">
+            <h2 className="card-title">Appointments</h2>
+            <select
+              className="select select-primary"
+              onChange={handleBloodType}
+              value={bloodType}
+            >
+              <option value="">All</option>
+              <option value="AB+">AB+</option>
+              <option value="AB-">AB-</option>
+              <option value="A+">A+</option>
+              <option value="A-">A-</option>
+              <option value="B+">B+</option>
+              <option value="B-">B-</option>
+              <option value="O+">O+</option>
+              <option value="O-">O-</option>
+            </select>
           </div>
           <div className="overflow-x-auto">
             <table className="table w-full">
               <thead>
                 <tr>
-                  <th>Appointment</th>
+                  <th>Appointment Type</th>
+                  <th>Blood Type</th>
                   <th>Address</th>
                   <th>Approved</th>
                   <th />
@@ -141,6 +164,7 @@ export default function AppointmentHistory() {
                 {appointments?.map((appointment, key) => (
                   <tr className="hover" key={nanoid()}>
                     <td>{appointment.type}</td>
+                    <td>{(appointment.info as AppointmentInfo).bloodType}</td>
                     <td>{appointment.user.address}</td>
                     <td>{appointment.approved ? 'Yes' : 'No'}</td>
                     <td>

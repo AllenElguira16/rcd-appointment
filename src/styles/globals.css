@@ -2,6 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+body::before {
+  content: '';
+  background-image: url(/images/bg-test.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+  height: 100vh;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
 .leaflet-container {
   width: 100%;
   height: 400px;

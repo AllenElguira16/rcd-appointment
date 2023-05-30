@@ -39,7 +39,7 @@ function MapModal() {
   return (
     <>
       <div className="card-title">
-        <h2>Create Announcement</h2>
+        <h2>View Map</h2>
       </div>
       <MapAnnouncement announcements={announcements} />
     </>
@@ -149,30 +149,30 @@ export default function AppointmentPage() {
                       >
                         ✕
                       </label>
-                      <MapModal />
+                      <AnnouncementModal />
                     </div>
                   </div>
                 </Portal>
               )}
-              <label className="btn" htmlFor="create-announcement-modal">
+              <label className="btn" htmlFor="map-announcement-modal">
                 View Map
               </label>
               {isDom && (
                 <Portal>
                   <input
                     type="checkbox"
-                    id="create-announcement-modal"
+                    id="map-announcement-modal"
                     className="modal-toggle"
                   />
                   <div className="modal">
                     <div className="modal-box relative max-w-7xl">
                       <label
-                        htmlFor="create-announcement-modal"
+                        htmlFor="map-announcement-modal"
                         className="btn btn-sm btn-circle absolute right-2 top-2"
                       >
                         ✕
                       </label>
-                      <AnnouncementModal />
+                      <MapModal />
                     </div>
                   </div>
                 </Portal>

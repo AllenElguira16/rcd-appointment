@@ -106,7 +106,7 @@ export function Appointment({
         </select>
       </div>
       <button type="submit" className="btn btn-primary">
-        {isSelectDisabled ? 'Update' : 'Proceed to Payment'}
+        {isSelectDisabled ? 'Update' : 'Submit'}
       </button>
     </form>
   );

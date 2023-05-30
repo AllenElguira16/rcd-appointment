@@ -5,6 +5,7 @@ import { SignUpForm } from '~/types';
 import { signUpSchema } from '~/schema';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { AuthLayout } from '~/layouts';
 
 export default function SignIn() {
   const router = useRouter();
@@ -31,58 +32,54 @@ export default function SignIn() {
   };
 
   return (
-    <div className="grid place-items-center min-h-screen">
-      <div className="card w-1/3 bg-base-100 shadow-xl">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="card-body grid gap-4"
-        >
-          <h1 className="card-title">Sign In</h1>
-          <div>
-            <input
-              type="text"
-              placeholder="Name"
-              className={`input input-bordered w-full ${
-                errors.name ? ' input-error' : ''
-              }`}
-              {...register('name')}
-            />
-            <small className="text-error">{errors.name?.message}</small>
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Email"
-              className={`input input-bordered w-full ${
-                errors.email ? ' input-error' : ''
-              }`}
-              {...register('email')}
-            />
-            <small className="text-error">{errors.email?.message}</small>
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              className={`input input-bordered w-full ${
-                errors.password ? ' input-error' : ''
-              }`}
-              {...register('password')}
-            />
-            <small className="text-error">{errors.password?.message}</small>
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Address"
-              className={`input input-bordered w-full ${
-                errors.address ? ' input-error' : ''
-              }`}
-              {...register('address')}
-            />
-            <small className="text-error">{errors.email?.message}</small>
-          </div>
-          {/* <div className="w-full">
+    <AuthLayout>
+      <form onSubmit={handleSubmit(onSubmit)} className="card-body grid gap-4">
+        <h1 className="card-title">Sign In</h1>
+        <div>
+          <input
+            type="text"
+            placeholder="Name"
+            className={`input input-bordered w-full ${
+              errors.name ? ' input-error' : ''
+            }`}
+            {...register('name')}
+          />
+          <small className="text-error">{errors.name?.message}</small>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Email"
+            className={`input input-bordered w-full ${
+              errors.email ? ' input-error' : ''
+            }`}
+            {...register('email')}
+          />
+          <small className="text-error">{errors.email?.message}</small>
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            className={`input input-bordered w-full ${
+              errors.password ? ' input-error' : ''
+            }`}
+            {...register('password')}
+          />
+          <small className="text-error">{errors.password?.message}</small>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Address"
+            className={`input input-bordered w-full ${
+              errors.address ? ' input-error' : ''
+            }`}
+            {...register('address')}
+          />
+          <small className="text-error">{errors.email?.message}</small>
+        </div>
+        {/* <div className="w-full">
             <select
               className="select select-primary w-full"
               {...register("bloodType")}
@@ -100,30 +97,29 @@ export default function SignIn() {
               <option value="O_NEGATIVE">O-</option>
             </select>
           </div> */}
-          <div className="w-full">
-            <select
-              className="select select-primary w-full"
-              {...register('gender')}
-            >
-              <option disabled value="" hidden>
-                Gender
-              </option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-            <small className="text-error">{errors.gender?.message}</small>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Sign Up
-          </button>
-          <div className="flex justify-center gap-1">
-            <span>Already have an account?</span>{' '}
-            <Link href="/auth/sign-in" className="font-bold">
-              Sign in
-            </Link>
-          </div>
-        </form>
-      </div>
-    </div>
+        <div className="w-full">
+          <select
+            className="select select-primary w-full"
+            {...register('gender')}
+          >
+            <option disabled value="" hidden>
+              Gender
+            </option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          <small className="text-error">{errors.gender?.message}</small>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Sign Up
+        </button>
+        <div className="flex justify-center gap-1">
+          <span>Already have an account?</span>{' '}
+          <Link href="/auth/sign-in" className="font-bold">
+            Sign in
+          </Link>
+        </div>
+      </form>
+    </AuthLayout>
   );
 }

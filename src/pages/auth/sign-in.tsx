@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useSetRecoilState } from 'recoil';
 import { alertState } from '~/state';
+import { AuthLayout } from '~/layouts';
 
 export default function SignIn() {
   const setAlert = useSetRecoilState(alertState);
@@ -32,46 +33,41 @@ export default function SignIn() {
   };
 
   return (
-    <div className="grid place-items-center min-h-screen">
-      <div className="card w-1/3 bg-base-100 shadow-xl">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="card-body grid gap-4"
-        >
-          <h1 className="card-title">Sign In</h1>
-          <div>
-            <input
-              type="text"
-              placeholder="Email"
-              className={`input input-bordered w-full ${
-                errors.email ? ' input-error' : ''
-              }`}
-              {...register('email')}
-            />
-            <small className="text-error">{errors.email?.message}</small>
-          </div>
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              className={`input input-bordered w-full ${
-                errors.password ? ' input-error' : ''
-              }`}
-              {...register('password')}
-            />
-            <small className="text-error">{errors.password?.message}</small>
-          </div>
-          <button type="submit" className="btn btn-primary">
-            Sign In
-          </button>
-          <div className="flex justify-center gap-1">
-            <span>Don&apos;t have an account?</span>{' '}
-            <Link href="/auth/sign-up" className="font-bold">
-              Sign up
-            </Link>
-          </div>
-        </form>
-      </div>
-    </div>
+    <AuthLayout>
+      <form onSubmit={handleSubmit(onSubmit)} className="card-body grid gap-4">
+        <h1 className="card-title">Sign In</h1>
+        <div>
+          <input
+            type="text"
+            placeholder="Email"
+            className={`input input-bordered w-full ${
+              errors.email ? ' input-error' : ''
+            }`}
+            {...register('email')}
+          />
+          <small className="text-error">{errors.email?.message}</small>
+        </div>
+        <div>
+          <input
+            type="password"
+            placeholder="Password"
+            className={`input input-bordered w-full ${
+              errors.password ? ' input-error' : ''
+            }`}
+            {...register('password')}
+          />
+          <small className="text-error">{errors.password?.message}</small>
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Sign In
+        </button>
+        <div className="flex justify-center gap-1">
+          <span>Don&apos;t have an account?</span>{' '}
+          <Link href="/auth/sign-up" className="font-bold">
+            Sign up
+          </Link>
+        </div>
+      </form>
+    </AuthLayout>
   );
 }

@@ -2,7 +2,7 @@ import { Appointment, AppointmentFormInput } from '~/components';
 import { useDomReady } from '~/hooks';
 import { AdminLayout } from '~/layouts';
 import { alertState } from '~/state';
-import { AppointmentForm } from '~/types';
+import { AppointmentForm, AppointmentInfo } from '~/types';
 import { trpc } from '~/utils';
 import { AppointmentEnum, User } from '@prisma/client';
 import { ChangeEventHandler, useState } from 'react';
@@ -157,6 +157,7 @@ export default function AppointmentPage() {
                 <tr>
                   <th>Client&apos;s Full Name</th>
                   <th>Appointment Type</th>
+                  <th>Blood Type</th>
                   <th>Approved</th>
                   <th />
                 </tr>
@@ -178,6 +179,7 @@ export default function AppointmentPage() {
                       </small>
                     </th>
                     <td>{appointment.type}</td>
+                    <td>{(appointment.info as AppointmentInfo).bloodType}</td>
                     <td>{appointment.approved ? 'Yes' : 'No'}</td>
                     <td>
                       <div className="flex gap-2">
