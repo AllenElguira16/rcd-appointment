@@ -1,11 +1,11 @@
-import { AdminLayout } from '~/layouts';
+import { UserLayout } from '~/layouts';
 
 import { Charts } from '~/components/Charts';
 
 export default function Users() {
   return (
-    <AdminLayout>
+    <UserLayout>
       <Charts />
-    </AdminLayout>
+    </UserLayout>
   );
 }
