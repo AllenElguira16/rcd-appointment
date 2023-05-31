@@ -11,3 +11,4 @@ export const MapInput = dynamic(() => import('./MapInput'), {
 export const MapAnnouncement = dynamic(() => import('./MapAnnouncement'), {
   ssr: false,
 });
+export * from './EditModal';

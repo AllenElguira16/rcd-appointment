@@ -67,7 +67,7 @@ export const userRouter = router({
         if (!(await bcrypt.compare(input.password, user.password))) {
           return {
             status: false,
-            message: 'password incorrect',
+            message: 'Password is Incorrect',
           };
         }
 
@@ -100,6 +100,7 @@ export const userRouter = router({
         gender: true,
         address: true,
         createdAt: true,
+        appointment: true,
       },
       where: {
         NOT: {
@@ -148,8 +149,10 @@ export const userRouter = router({
         },
       });
 
-      ctx.session.user = user;
-      await ctx.session.save();
+      if (input.id === ctx.session.user.id) {
+        ctx.session.user = user;
+        await ctx.session.save();
+      }
 
       return {
         status: true,

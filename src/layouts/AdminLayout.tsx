@@ -19,18 +19,17 @@ export function AdminLayout({ children }: PropsWithChildren) {
       nav={
         <ul className="menu p-2">
           <li>
+            <NavLink href="/admin/dashboard">
+              <i className="material-icons">dashboard</i>
+              <small className="font-bold">Dashboard</small>
+            </NavLink>
+          </li>
+          <li>
             <NavLink href="/admin/users">
               <i className="material-icons">person_add</i>
               <small className="font-bold">Users</small>
             </NavLink>
           </li>
-          {/* NEEDS CLARIFICATION */}
-          {/* <li>
-            <Link href="/admin/billing">
-              <i className="material-icons">credit_card</i>
-              <small className="font-bold">Billing</small>
-            </Link>
-          </li> */}
           <li>
             <NavLink href="/admin/appointment">
               <i className="material-icons">account_circle</i>
